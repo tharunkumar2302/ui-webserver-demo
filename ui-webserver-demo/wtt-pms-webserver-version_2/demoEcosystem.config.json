@@ -1,0 +1,15 @@
+{
+  "apps": [
+    {
+      "name": "app:demo",
+      "script": "src/index.js",
+      "instances": 1,
+      "autorestart": false,
+      "watch":  ["src/index.js"],
+      "watch_delay": 1000,
+      "env": {
+        "NODE_ENV": "demo"
+      }
+    }
+  ]
+}

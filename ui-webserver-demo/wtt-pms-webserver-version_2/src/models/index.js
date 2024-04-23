@@ -1,0 +1,15 @@
+module.exports.Token = require('./token.model');
+module.exports.User = require('./user.model');
+module.exports.Resumes = require('./resume.model');
+module.exports.SystemRole = require('./systemRole.model');
+module.exports.Organization = require('./organization.model');
+module.exports.JobRole = require('./jobRole.model');
+module.exports.KPI = require('./kpi.model');
+module.exports.JobOpening = require('./jobOpenings.model');
+module.exports.MenuAccess = require('./menuAccess.model');
+module.exports.JobApplicant = require('./jobApplicant.model');
+module.exports.Profile = require('./uploadProfile.model');
+module.exports.emailQueue = require('./emailEnque.model');
+module.exports.pricingplanusageorganisation = require('./pricingPlanUsageOrganization.model');
+module.exports.pricingplan = require('./pricingPlans.model');
+module.exports.pricingPlanRules = require('./pricingPlanRules.model');

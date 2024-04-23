@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{{firstName}}}</title>
+	<head>
+	<style type="text/css">
+		@page {
+        margin-top: 1cm;
+        margin-bottom: 1cm;
+		margin-right: 1cm;
+      }
+		body{
+		font-family: Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+		}
+		.content {
+        /* set the width and height to match the content area of your PDF */
+        width: 780px;
+        height: 1000px;
+        margin: auto;
+        padding: 20px;
+		    margin-left: 40px;
+      }
+        .report-header{
+            margin-top: 20px;
+        }
+        h1{
+            text-align: center;
+            margin-bottom: 50px;
+        }
+		  .page {
+            box-sizing: border-box;
+            page-break-after: always;
+            margin-top: 50px; /* add margin-top */
+            padding: 20px; /* add padding */
+          }
+      ul {
+          list-style-type:decimal;
+          margin-left: 15px;
+          padding-left: 0;
+      }
+      li::marker {
+         font-weight: bold;
+       }
+		/* @media print {
+        .page-break {
+            page-break-before: always;
+          }
+         } */
+	</style>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div class="content">
+	<div class="report-header">
+        <h1>{{{Name}}}</h1>
+		<h3>Email : {{{email}}}</h3>
+		<h3>MobileNo : {{{phone_no}}}</h3>
+        </div>
+	<div class="report-body">
+		<div class="info">
+		 <h3>Skills: </h3>
+           <p>{{{primary_skill}}}</p>
+		  <!-- Handlebars Template -->
+<h3>Experience:</h2>
+  <ul>
+{{#each experience_details}}
+  <div>
+    <li>
+    <p>Job Title : {{{job_title}}}</p>
+    <p>Company Name: {{{company_name}}}</p>
+    <p>Location : {{{location}}}</p>
+    <p>Joining Date : {{{date_of_joining}}}</p>
+    <p>Last Date : {{{last_date}}}</p> 
+    <p>Employment Type : {{{employment_type}}}</p>       
+    <p>Description : {{{description}}}</p>
+    </li>
+  </div>
+{{/each}}
+  </ul>
+<h3>Education:</h2>
+  <ul>
+{{#each education_details}}
+  <div>
+    <li>
+      <p>Qualification : {{{qualification}}}</p>
+      <p>Institute : {{{institute}}}</p>
+      <p>Specialization : {{{specialization}}}</p>
+      <p>Year of Passing : {{{year_of_passing}}}</p>
+      <p>Percentage : {{{marks_in_percentage}}}</p>
+      </li>
+  </div>
+{{/each}}
+</ul>
+		  <h3>Personal Details: </h3>
+          <p>Name            :{{{Name}}}</p>
+		  <p>MobileNo        :{{{phone_no}}}</p>
+		  <p>Date of Birth   :{{{date_of_birth}}}</p>
+          <p>Current Location:{{{current_location}}}</p>
+          <p>Present Address :{{{present_address}}}</p>
+		</div>
+	</div>
+</div>
+	</body>
+</html>
+

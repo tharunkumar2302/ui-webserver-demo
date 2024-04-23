@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Email templates</title>
+    <style>
+      #loginButton { margin-right: auto; width: 107px; display: block; padding-top: 9px; padding-left:
+      20px; padding-right: 10px; border-radius: 10px; background-color: #31a950; color: white; border: none; height: 28px; }
+      #title{ color: #31A950; } #horizontalLine{ border-top: 3px solid green; }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>
+          <span style='font-family: Arial; font-size: 10pt'>
+            Hello
+            <b>{{options.candidateName}}</b>,
+            <p>I hope this message finds you in good health and high spirits. We are excited to inform you that your interview with WalkingTree has been scheduled.</p>
+            <p>Interview Date: {{options.date}}</p>
+            <p>Interview Time: {{options.startTime}} - {{options.endTime}}</p>
+            <p>Meeting Link: {{options.meetingLink}}</p>
+            <p>Resume: {{options.profile.cv_url}}</p>
+            <p>Note: Please note that for the best experience, we recommend joining the interview from a Laptop/PC with a webcam and ensuring a stable internet connection.</br />
+            Wishing you the best of luck! If you have any questions or need further assistance, please feel free to reach out to us.</p>
+
+                      Thanks<br />
+          <strong>PMS Team</strong>
+          </span>
+
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+
+
+                                  

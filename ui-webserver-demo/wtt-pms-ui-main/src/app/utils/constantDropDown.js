@@ -1,0 +1,12 @@
+export const filterOpraterValue = [{ title: 'equal', display: 'Equal To' }, { title: 'greaterThan', display: 'Greater Than' }, { title: 'lessThan', display: 'Less Than' }];
+export const UserProfileStatus = [{ title: 'Draft', display: 'Draft' }, { title: 'Published', display: 'Published' }, { title: 'Archived', display: 'Archived' }];
+export const UserProfileMarital_Status = [{ title: 'Single', display: 'Single' }, { title: 'Married', display: 'Married' }, { title: 'Divorced', display: 'Divorced' }, { title: 'Widowed', display: 'Widowed' }];
+export const UserProfileEduction = [{ title: 'M.Tech', display: 'M.Tech' }, { title: 'MCA', display: 'MCA' }, { title: 'B.Tech', display: 'B.Tech' }, { title: 'BCA', display: 'BCA' }, { title: 'BSc', display: 'BSc' }];
+export const UserProfileCurrentEmploymentStatus = [{ title: 'Working', display: 'Working' }, { title: 'Not Working', display: 'Not Working' }];
+export const UserProfileYes_No = [{ title: 'Yes', display: 'Yes' }, { title: 'No', display: 'No' }];
+export const UserProfileEmployment_Type = [{ title: 'Permanent', display: 'Permanent' }, { title: 'Temporary', display: 'Temporary' }];
+export const UserProfilePrefered_location = [{ title: 'Hyderabad', display: 'Hyderabad' }, { title: 'Bangalore', display: 'Bangalore' }, { title: 'Delhi', display: 'Delhi' }, { title: 'Chennai', display: 'Chennai' }, { title: 'Mumbai', display: 'Mumbai' }];
+export const headingDashboardChartDays = [{ title: 'today', display: 'Today' }, { title: 'yesterday', display: 'Yesterday' }, { title: 'week', display: 'Last Week' }, { title: 'month', display: 'Last Month' }];
+export const JobOpeningEmploymentType = [{ title: 'Full Time', display: 'Full Time' }, { title: 'Contract', display: 'Contract' }];
+export const JobOpeningWorkMode = [{ title: 'Work from home', display: 'Work From Home' }, { title: 'Work from office', display: 'Work From Office' }];
+export const JobOpeningMonths = [{ title: '6 months', display: '6 months' }, { title: '9 months', display: '9 months' }, { title: '12 months', display: '12 months' }, { title: 'Ongoing', display: 'Ongoing' }, { title: 'Permanent', display: 'Permanent' }];

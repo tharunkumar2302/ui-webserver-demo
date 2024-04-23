@@ -1,0 +1,91 @@
+pipeline {
+    agent any
+
+tools {
+   nodejs 'Node16.13.1'
+}
+   
+parameters {
+  choice choices: ['QA','BACKUP'], name: 'ENVIRONMENT'
+  string defaultValue: 'develop', name: 'BRANCH'
+}
+
+    stages {
+        stage('CheckOut') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build:QA') {
+            when {
+                expression { 
+                   return params.ENVIRONMENT == 'QA'
+                }
+            }
+            steps {
+                 sh 'cd /var/lib/jenkins/workspace/pms-qa && ls && npm install --force && npm install -g env-cmd && npm run build:qa'
+                 echo "Build completed Successfully"
+            }
+            
+        }
+        // stage('Build:UAT') {
+        //     when {
+        //         expression { 
+        //            return params.ENVIRONMENT == 'UAT'
+        //         }
+        //     }
+        //     steps {
+        //          sh 'cd /var/lib/jenkins/workspace/PMS-UI && ls && npm install && npm install -g env-cmd && npm run build:uat'
+        //          echo "Build completed Successfully"
+        //     }
+            
+        // }
+        stage('Deploy to QA') {
+             when {
+                expression { 
+                   return params.ENVIRONMENT == 'QA'
+                }
+            }
+            steps {
+                echo 'Deploying the build file to the server'
+                       sshagent(credentials : ['a5a073bd-e907-40b4-8a9a-b792391369e4']) {
+                        sh "ssh -o StrictHostKeyChecking=no root@192.168.1.50 uptime"
+                        sh "ssh -o StrictHostKeyChecking=no root@192.168.1.50 'cd ..  &&  cd home/ashoka/PMS_new_api && ls && today=\$(date +%d-%m-%Y:%H:%M) && mkdir qaBackup/\"\$today\" && cp -r wtt-pms-qawebserver/ui qaBackup/\"\$today\" && cd qaBackup/\"\$today\" && mongodump --uri=\"mongodb://115.247.13.130:27084/wtt_pms_db_qa\"'"
+                        sh "scp -r $WORKSPACE/build root@192.168.1.50:/home/ashoka/PMS_new_api/wtt-pms-qawebserver/ui/public"
+                  }
+                
+            }
+        }
+        stage('QA backup') {
+             when {
+                expression { 
+                   return params.ENVIRONMENT == 'BACKUP'
+                }
+            }
+            steps {
+                echo 'Deploying the build file to the server'
+                       sshagent(credentials : ['a5a073bd-e907-40b4-8a9a-b792391369e4']) {
+                        sh "ssh -o StrictHostKeyChecking=no root@192.168.1.50 'uptime && cd .. && ls &&  cd home/ashoka/PMS_new_api && today=\$(date +%d-%m-%Y:%H:%M) && mkdir qaBackup/\"\$today\" && cp -r wtt-pms-qawebserver/ui qaBackup/\"\$today\" && cd qaBackup/\"\$today\" && mongodump --uri=\"mongodb://115.247.13.130:27084/wtt_pms_db_qa\"'"
+
+                  }
+                
+            }
+        }
+        // stage('Deploy to UAT') {
+        //      when {
+        //         expression { 
+        //            return params.ENVIRONMENT == 'UAT'
+        //         }
+        //     }
+        //     steps {
+        //         echo 'Deploying the build file to the server'
+        //                sshagent(credentials : ['a5a073bd-e907-40b4-8a9a-b792391369e4']) {
+        //                 sh "ssh -o StrictHostKeyChecking=no root@192.168.1.94 uptime"
+        //                 sh "scp -r $WORKSPACE/build root@192.168.1.94:/home/rms-uat/Profile_Management_System/profile-management-system"
+        //           }
+                
+        //     }
+        // }
+        
+    }
+}

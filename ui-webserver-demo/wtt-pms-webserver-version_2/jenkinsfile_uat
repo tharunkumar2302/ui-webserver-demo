@@ -1,0 +1,77 @@
+pipeline {
+    agent {
+        node {
+            label 'wttslave'
+        }
+    }
+
+tools {
+   nodejs 'Node16.13.1'
+}
+
+parameters {
+  choice choices: ['UAT'], name: 'ENVIRONMENT'
+  string defaultValue: 'develop', name: 'BRANCH'
+}
+
+    stages {
+        stage('CheckOut') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build') {
+            when {
+                expression {
+                   return params.ENVIRONMENT == 'UAT'
+                }
+            }
+            steps {
+                 sh 'cd /home/walkingtree/jenkins/workspace/wtt-pms-uatwebserver && ls && rm -rf homebrew'
+
+             publishHTML(target: [ allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'coverage', reportFiles: 'index.html', reportName: "Code Coverage" ])
+             echo "Build completed Successfully"
+
+            }
+
+
+        }
+
+        stage('Deploy to DEV') {
+             when {
+                expression {
+                   return params.ENVIRONMENT == 'UAT'
+                }
+            }
+            steps {
+                echo 'Deploying the build file to the server'
+                       sshagent(credentials : ['a5a073bd-e907-40b4-8a9a-b792391369e4']) {
+                        sh "ssh -o StrictHostKeyChecking=no rms-uat@192.168.1.94 'uptime && cd .. && ls &&  cd rms-uat/pms_uat_server && rm -rf wtt-pms-uatwebserver '"
+                        sh "scp -r $WORKSPACE  rms-uat@192.168.1.94:/home/rms-uat/pms_uat_server"
+                        sh "scp -r /home/walkingtree/jenkins/workspace/pms-uat/build rms-uat@192.168.1.94:/home/rms-uat/pms_uat_server/wtt-pms-uatwebserver/ui/public"
+                        sh "ssh -o StrictHostKeyChecking=no rms-uat@192.168.1.94 'cd .. && ls &&  cd rms-uat/pms_uat_server/wtt-pms-uatwebserver && rm -rf node_modules && rm -rf backup ; npm i && npm i pm2 && npm run stop:pm2uat && npm run start:pm2uat'"
+
+                  }
+
+            }
+        }
+        // stage("Create Backup"){
+        //   when{
+        //      expression {
+        //            return params.ENVIRONMENT == 'backup'
+        //         }
+        //   }
+        //    steps {
+        //         echo 'Deploying the build file to the server'
+        //                sshagent(credentials : ['a5a073bd-e907-40b4-8a9a-b792391369e4']) {
+        //                 sh "ssh -o StrictHostKeyChecking=no root@192.168.1.50 'uptime && cd .. && cd home/ashoka/PMS_new_api/ && mongodump --uri=\"mongodb://115.247.13.130:27084/wtt_pms_db_dev\" && cd dump && ls'"
+        //                 sh "today=\$(date +%d-%m-%Y) && rm -rf $WORKSPACE/backup/\"\$today\" && scp -r root@192.168.1.50:/home/ashoka/PMS_new_api/wtt-pms-webserver $WORKSPACE/backup/\"\$today\" && scp -r root@192.168.1.50:/home/ashoka/PMS_new_api/dump $WORKSPACE/backup/\"\$today\"   "
+        //           }
+
+        //     }
+        // }
+
+
+
+    }
+}

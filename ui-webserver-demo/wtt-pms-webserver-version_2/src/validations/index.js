@@ -1,0 +1,14 @@
+module.exports.authValidation = require('./auth.validation');
+module.exports.userValidation = require('./user.validation');
+module.exports.resumesValidation = require('./resumes.validation');
+module.exports.systemRolesValidation = require('./systemRoles.validation');
+module.exports.organizationValidation = require('./organization.validation');
+module.exports.jobRoleValidation = require('./jobRole.validation');
+module.exports.jobOpeningValidation = require('./jobOpening.validation');
+module.exports.notificationValidation = require('./notification.validation');
+module.exports.menuAccessValidation = require('./menuAccess.validation');
+module.exports.jobApplicantValidation = require('./jobApplicant.validation');
+module.exports.candidateValidation = require('./candidate.validation');
+module.exports.pricingPlanValidation = require('./pricingplan.validation');
+module.exports.employerDataValidation = require('./employerData.validation');
+module.exports.scheduleInterviewValidation = require('./interviewSchedule.validation');

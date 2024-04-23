@@ -1,0 +1,30 @@
+[
+  {
+    "name": "admin",
+    "description": "Administrative Managers help organize schedules and manage payroll and personnel databases. They create reports to offer to other clerical roles. They also set policies and procedures to ensure that staff members are well trained and confident in their abilities.",
+    "isDefault": true
+
+  },
+  {
+    "name": "employer",
+    "description": "an employer is an organization, institution, government entity, agency, company, professional services firm, nonprofit association, small business, store, or individual who employs or puts to work individuals who may be called employees or staff members.",
+    "isDefault": true
+
+  },
+  {
+    "name": "candidate",
+    "description": "Candidate is a job seeker who has been pre-qualified for a specific position or category of jobs and has been through the application process.",
+    "isDefault": true
+
+  },
+  {
+    "name": "recruiter",
+    "description": "Recruiters are responsible for identifying and processing candidates to fill job openings. These human resources specialists screen and interview candidates, serve as liaisons between employers and applicants and facilitate job offers.",
+    "isDefault": true
+  },
+  {
+    "name": "superUser",
+    "description": "superUser are responsible for identifying and processing candidates to fill job openings. These human resources specialists screen and interview candidates, serve as liaisons between employers and applicants and facilitate job offers.",
+    "isDefault": true
+  }
+]

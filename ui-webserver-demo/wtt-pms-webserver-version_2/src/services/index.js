@@ -1,0 +1,14 @@
+module.exports.authService = require('./auth.service');
+module.exports.emailService = require('./email.service');
+module.exports.tokenService = require('./token.service');
+module.exports.userService = require('./user.service');
+module.exports.resumeService = require('./resume.service');
+module.exports.systemRolesService = require('./systemRoles.service');
+module.exports.organizationService = require('./organization.service');
+module.exports.jobRoleService = require('./jobRole.service');
+module.exports.jobOpeningService = require('./jobOpening.service');
+module.exports.notificationService = require('./notification.service');
+module.exports.menuAccessService = require('./menuAccess.service');
+module.exports.jobApplicantService = require('./jobApplicant.service');
+module.exports.candidateService = require('./candidate.service');
+module.exports.calenderService = require('./calenderEvent.service');

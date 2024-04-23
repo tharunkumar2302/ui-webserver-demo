@@ -1,0 +1,63 @@
+pipeline {
+    agent any
+
+tools {
+   nodejs 'Node16.13.1'
+}
+   
+parameters {
+  choice choices: ['DEV','BACKUP'], name: 'ENVIRONMENT'
+  string defaultValue: 'develop', name: 'BRANCH'
+}
+
+    stages {
+        stage('CheckOut') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build') {
+            when {
+                expression { 
+                   return params.ENVIRONMENT == 'DEV'
+                }
+            }
+            steps {
+                 sh 'cd /var/lib/jenkins/workspace/PMS-UI  && ls && npm i --force && npm install -g env-cmd && npm run build:dev'
+                 echo "Build completed Successfully"
+            }
+            
+        }
+
+        stage('Deploy to DEV') {
+             when {
+                expression { 
+                   return params.ENVIRONMENT == 'DEV'
+                }
+            }
+            steps {
+                echo 'Deploying the build file to the server'
+                       sshagent(credentials : ['a5a073bd-e907-40b4-8a9a-b792391369e4']) {
+                        sh "ssh -o StrictHostKeyChecking=no root@192.168.1.50 'uptime && cd .. && cd /home/ashoka/PMS_new_api/wtt-pms-webserver/ui/public && rm -rf build'"
+                        sh "scp -r $WORKSPACE/build root@192.168.1.50:/home/ashoka/PMS_new_api/wtt-pms-webserver/ui/public"
+                  }
+                
+            }
+        }
+        stage('Backup') {
+             when {
+                expression { 
+                   return params.ENVIRONMENT == 'BACKUP'
+                }
+            }
+            steps {
+                echo 'Deploying the build file to the server'
+                       sshagent(credentials : ['a5a073bd-e907-40b4-8a9a-b792391369e4']) {
+                        sh "ssh -o StrictHostKeyChecking=no root@192.168.1.50 'uptime && cd .. && ls &&  cd var/www/html && today=\$(date +%d-%m-%Y) && mkdir pms_ui_backup/\"\$today\" && cp -r pms pms_ui_backup/\"\$today\"'"
+                  }
+                
+            }
+        }
+        
+    }
+}

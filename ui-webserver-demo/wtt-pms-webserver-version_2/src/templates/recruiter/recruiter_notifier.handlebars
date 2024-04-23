@@ -1,0 +1,49 @@
+<html>
+
+<head>
+  <title>{{subject}}</title>
+  <style>
+    #loginButton {
+      margin-right: auto;
+      display: flex;
+      padding-top: 9px;
+      padding-left: 20px;
+      padding-right: 20px;
+      border-radius: 10px;
+      background-color: #31a950;
+      color: white;
+      border: none;
+      justify-content: center;
+      height: 28px;
+      width: max-content;
+      text-decoration: none;
+    }
+
+    #title {
+      color: #31A950;
+    }
+
+    #horizontalLine {
+      border-top: 3px solid green;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td>
+        <span style='font-family: Arial; font-size: 10pt'>
+          Hi
+          <b>{{options.recruiterName}}</b>,
+          <p> I ({{options.candidateName}} : {{options.candidateEmailAddress}}) {{options.status}} for job opening - {{options.jobTitle}}</p>
+          Please consider for same. <br> <br>
+          Thanks<br>
+          <strong>{{options.candidateName}}</strong>
+        </span>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

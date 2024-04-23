@@ -1,0 +1,53 @@
+<html>
+
+<head>
+  <title>{{subject}}</title>
+  <style>
+    #loginButton {
+      margin-right: auto;
+      display: flex;
+      padding-top: 9px;
+      padding-left: 20px;
+      padding-right: 20px;
+      border-radius: 10px;
+      background-color: #31a950;
+      color: white;
+      border: none;
+      justify-content: center;
+      height: 28px;
+      width: max-content;
+      text-decoration: none;
+    }
+
+    #title {
+      color: #31A950;
+    }
+
+    #horizontalLine {
+      border-top: 3px solid green;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td>
+        <span style='font-family: Arial; font-size: 10pt'>
+          Hello
+          <b>{{user}}</b>,
+          <p> {{options.firstLine}}<br />
+            Please find your login email and password as below:</p>
+          <p> <strong>Email ID:</strong> {{options.email}} </p>
+          <p> <strong>Password:</strong> {{options.password}} </p>
+          <a id='loginButton' href={{url}}>Login</a>
+                  Thanks,<br />
+          <strong>PMS Team</strong>
+        </span>
+
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

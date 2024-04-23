@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Beta",
+    "description": "beta subscription",
+    "unique_Code": "beta"
+  },
+  {
+    "name": "Trial",
+    "description": "trial subscription",
+    "unique_Code": "trial"
+  }
+]

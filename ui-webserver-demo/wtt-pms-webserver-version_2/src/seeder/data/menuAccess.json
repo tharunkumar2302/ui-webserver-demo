@@ -1,0 +1,146 @@
+[
+    {
+        "role": "employer",
+        "screen": [
+            {
+                "key": "Dashboard",
+                "name": "Dashboard"
+            },
+            {
+                "key": "Recruiter",
+                "name": "Recruiter"
+            },
+            {
+                "key": "Masters",
+                "name": "Masters"
+            },
+            {
+                "key": "JobRole",
+                "name": "Job Role"
+            }
+        ],
+        "isActive": true
+    },
+    {
+        "role": "superUser",
+        "screen": [
+            {
+                "key": "Profile",
+                "name": "Profile"
+            },
+            {
+                "key": "Organisation",
+                "name": "Organisation"
+            }
+        ],
+        "isActive": true
+    },
+    {
+        "role": "recruiter",
+        "screen": [
+            {
+                "key": "Dashboard",
+                "name": "Dashboard"
+            },
+            {
+                "key": "JobOpening",
+                "name": "Job Opening"
+            },
+            {
+                "key": "Profile",
+                "name": "Profile"
+            },
+            {
+                "key": "JobApplicant",
+                "name": "Job Applicant"
+            },
+            {
+                "key": "Masters",
+                "name": "Masters"
+            },
+            {
+                "key": "JobRole",
+                "name": "Job Role"
+            },
+            {
+                "key": "BulkUpload",
+                "name": "Bulk Upload"
+            },
+            {
+                "key": "scheduleInterview",
+                "name": "Schedule Interview"
+            }
+        ],
+        "isActive": true
+    },
+    {
+        "role": "admin",
+        "screen": [
+            {
+                "key": "Dashboard",
+                "name": "Dashboard"
+            },
+            {
+                "key": "Recruiter",
+                "name": "Recruiter"
+            },
+            {
+                "key": "JobOpening",
+                "name": "Job Opening"
+            },
+            {
+                "key": "Profile",
+                "name": "Profile"
+            },
+            {
+                "key": "JobApplicant",
+                "name": "Job Applicant"
+            },
+            {
+                "key": "Masters",
+                "name": "Masters"
+            },
+            {
+                "key": "JobRole",
+                "name": "Job Role"
+            }
+        ],
+        "isActive": true
+    },
+    {
+        "role": "candidate",
+        "screen": [
+            {
+                "key": "Dashboard-c",
+                "name": "Dashboard"
+            },
+            {
+                "key": "RelvantJobs",
+                "name": "Relvant Jobs"
+            },
+            {
+                "key": "AppliedJobs",
+                "name": "Applied Jobs"
+            },
+            {
+                "key": "Jobs",
+                "name": "Jobs"
+            }
+        ],
+        "isActive": true
+    },
+    {
+        "role": "superuser",
+        "screen": [
+            {
+                "key": "Profile",
+                "name": "Profile"
+            },
+            {
+                "key": "Organization",
+                "name": "Organization"
+            }
+        ],
+        "isActive": true
+    }
+]

@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+
+tools {
+   nodejs 'Node16.13.1'
+}
+
+parameters {
+  choice choices: ['DEV', 'backup'], name: 'ENVIRONMENT'
+  string defaultValue: 'develop', name: 'BRANCH'
+}
+
+    stages {
+        stage('CheckOut') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build') {
+            when {
+                expression {
+                   return params.ENVIRONMENT == 'DEV'
+                }
+            }
+            steps {
+                 sh 'cd /var/lib/jenkins/workspace/wtt-pms-webserver && ls && rm -rf homebrew && rm -rf backup && rm -rf node_modules'
+
+             publishHTML(target: [ allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'coverage', reportFiles: 'index.html', reportName: "Code Coverage" ])
+             echo "Build completed Successfully"
+
+            }
+
+
+        }
+        stage("Create Backup"){
+          when{
+             expression {
+                   return params.ENVIRONMENT == 'backup'
+                }
+          }
+           steps {
+                echo 'Deploying the build file to the server'
+                       sshagent(credentials : ['a5a073bd-e907-40b4-8a9a-b792391369e4']) {
+                        sh "ssh -o StrictHostKeyChecking=no root@192.168.1.50 'uptime && cd .. && cd home/ashoka/PMS_new_api && cd wtt-pms-local  && mongodump --uri=\"mongodb://115.247.13.130:27084/wtt_pms_db_dev_local\" && ls'"
+                        sh "today=\$(date +%d-%m-%Y) && rm -rf $WORKSPACE/backup/\"\$today\" && mkdir $WORKSPACE/backup/\"\$today\" && scp -r root@192.168.1.50:/home/ashoka/PMS_new_api/wtt-pms-local  $WORKSPACE/backup/\"\$today\" && scp -r root@192.168.1.50:/home/ashoka/PMS_new_api/wtt-pms-local/dump $WORKSPACE/backup/\"\$today\" && ls   "
+                  }
+
+            }
+        }
+
+
+
+    }
+}

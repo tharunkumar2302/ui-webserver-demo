@@ -1,0 +1,51 @@
+<html>
+
+<head>
+  <title>{{subject}}</title>
+  <style>
+    #loginButton {
+      margin-right: auto;
+      display: flex;
+      padding-top: 9px;
+      padding-left: 20px;
+      padding-right: 20px;
+      border-radius: 10px;
+      background-color: #31A950;
+      color: white;
+      border: none;
+      justify-content: center;
+      height: 28px;
+      width: max-content;
+      text-decoration: none;
+    }
+
+    #title {
+      color: #31A950;
+    }
+
+    #horizontalLine {
+      border-top: 3px solid green;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td>
+        <span style='font-family: Arial; font-size: 10pt'>
+          Hi
+          <b>{{candidateName}}</b>,
+          <p>{{options.recruiterName}} has invited you to PMS. You can accept this invitation by clicking on the bellow signUp button.</p>
+          <p>This invitation will expire in 1 day.</p>
+          <a id='loginButton' href={{url}}>Sign Up</a>
+                  Thanks<br />
+          <strong>PMS Team</strong>
+        </span>
+
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

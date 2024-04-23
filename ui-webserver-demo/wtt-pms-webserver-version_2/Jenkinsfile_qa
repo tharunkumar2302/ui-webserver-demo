@@ -1,0 +1,74 @@
+pipeline {
+    agent any
+
+tools {
+   nodejs 'Node16.13.1'
+}
+
+parameters {
+  choice choices: ['QA', 'backup'], name: 'ENVIRONMENT'
+  string defaultValue: 'develop', name: 'BRANCH'
+}
+
+    stages {
+        stage('CheckOut') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build') {
+            when {
+                expression {
+                   return params.ENVIRONMENT == 'QA'
+                }
+            }
+            steps {
+                 sh 'cd /var/lib/jenkins/workspace/wtt-pms-webserver && ls  && rm -rf homebrew && rm -rf backup '
+
+ publishHTML(target: [ allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'coverage', reportFiles: 'index.html', reportName: "Code Coverage" ])
+                 echo "Build completed Successfully"
+
+            }
+
+
+        }
+
+        stage('Deploy to QA') {
+             when {
+                expression {
+                   return params.ENVIRONMENT == 'QA'
+                }
+            }
+            steps {
+                echo 'Deploying the build file to the server'
+                       sshagent(credentials : ['a5a073bd-e907-40b4-8a9a-b792391369e4']) {
+                        sh "ssh -o StrictHostKeyChecking=no root@192.168.1.50 'uptime && cd .. && cd /home/ashoka/PMS_new_api && rm -rf wtt-pms-qawebserver'"
+                        sh "scp -r $WORKSPACE root@192.168.1.50:/home/ashoka/PMS_new_api"
+                        sh "scp -r /var/lib/jenkins/workspace/pms-qa/build root@192.168.1.50:/home/ashoka/PMS_new_api/wtt-pms-qawebserver/ui/public"
+                        sh "ssh -o StrictHostKeyChecking=no root@192.168.1.50 'cd .. && ls &&  cd home/ashoka/PMS_new_api/wtt-pms-qawebserver && rm -rf node_modules && npm i && npm i pm2 &&  npm run stop:pm2qa && npm run start:pm2qa'"
+
+                  }
+
+            }
+        }
+
+        stage("Create Backup"){
+          when{
+             expression {
+                   return params.ENVIRONMENT == 'backup'
+                }
+          }
+           steps {
+                echo 'Deploying the build file to the server'
+                       sshagent(credentials : ['a5a073bd-e907-40b4-8a9a-b792391369e4']) {
+                        sh "ssh -o StrictHostKeyChecking=no root@192.168.1.50 'uptime && cd .. && cd home/ashoka/wtt-pms-qawebserver/ && mongodump --uri=\"mongodb://115.247.13.130:27084/wtt_pms_db_dev\" && cd dump && ls'"
+                        sh "today=\$(date +%d-%m-%Y) && rm -rf $WORKSPACE/backup/\"\$today\" ; scp -r root@192.168.1.50:/home/ashoka/PMS_new_api/wtt-pms-qawebserver $WORKSPACE/backup/\"\$today\" && cd $WORKSPACE/backup/\"\$today\""
+                  }
+
+            }
+        }
+
+
+
+    }
+}

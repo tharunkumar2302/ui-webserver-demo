@@ -1,0 +1,72 @@
+pipeline {
+       agent any
+
+tools {
+   nodejs 'Node16'
+}
+
+parameters {
+  choice choices: ['DEV', 'backup'], name: 'ENVIRONMENT'
+  string defaultValue: 'develop', name: 'BRANCH'
+}
+
+    stages {
+        stage('CheckOut') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build') {
+            when {
+                expression {
+                   return params.ENVIRONMENT == 'DEV'
+                }
+            }
+            steps {
+                 sh ' ls && rm -rf homebrew && rm -rf backup && rm -rf node_modules'
+
+             publishHTML(target: [ allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'coverage', reportFiles: 'index.html', reportName: "Code Coverage" ])
+             echo "Build completed Successfully"
+
+            }
+
+
+        }
+
+        stage('Deploy to DEV') {
+             when {
+                expression {
+                   return params.ENVIRONMENT == 'DEV'
+                }
+            }
+            steps {
+                echo 'Deploying the build file to the server'
+                        sh "rm -rf .git"
+                        sshagent(credentials : ['a5a073bd-e907-40b4-8a9a-b792391369e4']) {
+                        sh "ssh -o StrictHostKeyChecking=no root@192.168.1.125 'uptime && cd ~ && cd /home/walkingtree/PMS_Dev/wtt-pms-webserver/ && rm -rf wtt-pms-webserver' "
+                        sh "scp -r * root@192.168.1.125:/home/walkingtree/PMS_Dev/wtt-pms-webserver"
+                        sh "scp -r /var/lib/jenkins/workspace/PMS-UI/build root@192.168.1.125:/home/walkingtree/PMS_Dev/wtt-pms-webserver/ui/public"
+                        sh "ssh -o StrictHostKeyChecking=no root@192.168.1.125 'export PATH=/home/walkingtree/.nvm/versions/node/v16.13.1/bin:$PATH && cd ~ && ls && cd /home/walkingtree/PMS_Dev/wtt-pms-webserver && rm -rf node_modules && rm -rf backup && npm install puppeteer && npm i && npm i -g pm2 && pm2 status && npm run start:pm2dev'"                  
+                  }
+            }
+        }
+        stage("Create Backup"){
+          when{
+             expression {
+                   return params.ENVIRONMENT == 'backup'
+                }
+          }
+           steps {
+                echo 'Deploying the build file to the server'
+                        sshagent(credentials : ['a5a073bd-e907-40b4-8a9a-b792391369e4']) {
+                        sh "ssh -o StrictHostKeyChecking=no root@192.168.1.125 'uptime && cd .. && cd /home/walkingtree/PMS_Dev/wtt-pms-webserver && cd wtt-pms-webserver && mongodump --uri=\"mongodb://115.247.13.130:27084/wtt_pms_db_dev\" && ls'"
+                        sh "today=\$(date +%d-%m-%Y) && rm -rf $WORKSPACE/backup/\"\$today\" && mkdir $WORKSPACE/backup ; mkdir $WORKSPACE/backup/\"\$today\" && scp -r root@192.168.1.125:/home/walkingtree/PMS_Dev/wtt-pms-webserver $WORKSPACE/backup/\"\$today\" && scp -r root@192.168.1.125:/home/walkingtree/PMS_Dev/wtt-pms-webserver/dump $WORKSPACE/backup/\"\$today\" && ls  "
+                  
+                  }
+            }
+        }
+
+
+
+    }
+}

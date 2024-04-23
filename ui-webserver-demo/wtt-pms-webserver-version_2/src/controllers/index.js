@@ -1,0 +1,15 @@
+module.exports.authController = require('./auth.controller');
+module.exports.userController = require('./user.controller');
+module.exports.resumesController = require('./resumes.controller');
+module.exports.systemRolesController = require('./systemRoles.controller');
+module.exports.organizationController = require('./organization.controller');
+module.exports.jobRoleController = require('./jobRole.controller');
+module.exports.jobOpeningController = require('./jobOpenings.controller');
+module.exports.menuAccessController = require('./menuAccess.controller');
+module.exports.notificationController = require('./notification.controller');
+module.exports.jobApplicantController = require('./jobApplicant.controller');
+module.exports.candidateController = require('./candidate.controller');
+module.exports.healthController = require('./health.controller');
+module.exports.pricingPlanController = require('./pricingPlan.controller');
+module.exports.employerDataController = require('./employerData.controller');
+module.exports.scheduleInterviewController = require('./interviewSchedule.controller');

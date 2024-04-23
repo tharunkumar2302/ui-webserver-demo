@@ -1,0 +1,60 @@
+[
+  {
+    "actual": 0,
+    "description": "20 recruiter restructions",
+    "rule_Code": "RECRUITER_RESTRICTION",
+    "rule_Type": "LimitRestriction",
+    "value": 20,
+    "__v": 0,
+    "plan": "Beta"
+  },
+  {
+    "description": "NLP Search",
+    "rule_Code": "NLPSEARCH_ACCESS",
+    "rule_Type": "Access",
+    "value": 1,
+    "__v": 0,
+    "plan": "Beta"
+  },
+  {
+    "actual": 0,
+    "description": "50000 Email restructions",
+    "rule_Code": "EMAIL_RESTRICTION",
+    "rule_Type": "LimitRestriction",
+    "value": 50000,
+    "plan": "Beta"
+  },
+  {
+    "actual": 0,
+    "description": "10000 Profiles restructions",
+    "rule_Code": "PROFILES_RESTRICTION",
+    "rule_Type": "LimitRestriction",
+    "value": 10000,
+    "plan": "Beta"
+  },
+  {
+    "actual": 0,
+    "description": "5 recruiter restructions",
+    "rule_Code": "RECRUITER_RESTRICTION",
+    "rule_Type": "LimitRestriction",
+    "value": 5,
+    "__v": 0,
+    "plan": "Trial"
+  },
+  {
+    "actual": 0,
+    "description": "25 Email restructions",
+    "rule_Code": "EMAIL_RESTRICTION",
+    "rule_Type": "LimitRestriction",
+    "value": 25,
+    "plan": "Trial"
+  },
+  {
+    "actual": 0,
+    "description": "10 Profiles restructions",
+    "rule_Code": "PROFILES_RESTRICTION",
+    "rule_Type": "LimitRestriction",
+    "value": 10,
+    "plan": "Trial"
+  }
+]
