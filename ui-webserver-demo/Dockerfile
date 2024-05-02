@@ -34,3 +34,6 @@ COPY . .
 EXPOSE 4001
 # Start your application using pm2
 CMD ["pm2-runtime", "npm", "--", "run", "start:pm2dev"]
+
+
+#####################################
